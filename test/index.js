@@ -47,4 +47,17 @@ lab.experiment('API test', () => {
     Code.expect(secondresponse.statusCode).to.equal(200)
     Code.expect(secondresponse.result.viewcount).to.equal(response.result.viewcount + 1)
   })
+
+  lab.test('GET unknown route returns 404 error with statusCode, error, and message', async () => {
+    const options = {
+      method: 'GET',
+      url: '/noSuchRoute'
+    }
+
+    const response = await server.inject(options)
+    Code.expect(response.statusCode).to.equal(404)
+    Code.expect(response.result.statusCode).to.equal(404)
+    Code.expect(response.result.error).to.equal('Not Found')
+    Code.expect(response.result.message).to.equal('Not Found')
+  })
 })
