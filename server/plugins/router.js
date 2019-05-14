@@ -1,7 +1,4 @@
-const routes = [].concat(
-  require('../routes/home'),
-  require('../routes/viewcount')
-)
+const routes = require('../routes')
 
 module.exports = {
   plugin: {
