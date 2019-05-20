@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+test "${CONTAINER_IMAGE}" = "" && CONTAINER_IMAGE="elm-lmp-api:local"
+
+docker build -t ${CONTAINER_IMAGE} .
+test $? -eq 0 && docker build -t ${CONTAINER_IMAGE}-development --target=development .
+
+exit $?
