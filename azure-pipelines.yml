@@ -25,9 +25,6 @@ steps:
 - bash: docker build -t $(containerImage)-development --target=development .
   displayName: Build development image
 
-- bash: docker build -t $(containerImage)-pa11y --target=pa11y .
-  displayName: Build Pa11y image
-
 - bash: bin/test
   displayName: Test
   env:
