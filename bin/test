@@ -13,3 +13,5 @@ chmod 777 "${outputDirectory}"
 docker run --rm -v "$(pwd)/${OUTPUT_DIR}/:/home/node/${OUTPUT_DIR}/" ${CONTAINER_IMAGE}-development npm run test
 result=$?
 test ${result} != 0 && echo "Unit test failed. Exiting." && exit ${result}
+
+exit 0
