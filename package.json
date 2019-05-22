@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "lint": "standard",
-    "unit-test": "lab -c -r console -o stdout -r lcov -o lcov.info",
+    "unit-test": "lab -c -r console -o stdout -r junit -o ./test-output/TEST-$(date '+%Y%m%d-%H%M%S').xml",
     "pretest": "npm run lint",
     "test": "npm run unit-test",
     "unit-test-watch": "nodemon --inspect=0.0.0.0 --exec npm run unit-test",
