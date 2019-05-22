@@ -41,4 +41,4 @@ steps:
   inputs:
     command: buildandpush
     containerRegistry: $(azureContainerRegistry)
-    repository: elm-lmp-web
+    repository: elm-lmp-api
