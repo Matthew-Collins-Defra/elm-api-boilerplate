@@ -5,9 +5,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  azureContainerRegistry: 'mcCntRegistry Connection'
-  containerImage: elm-lmp-api:$(Build.BuildId)
-  testOutputDir: test-output
+  - group: containergroup
+  - name: containerImage
+    value: elm-lmp-api:$(Build.BuildId)
+  - name: repository
+    value: elm-lmp-api
+  - name: testOutputDir
+    value: test-output
 
 steps:
 - task: Docker@2
@@ -15,7 +19,8 @@ steps:
   inputs:
     command: build
     containerRegistry: $(azureContainerRegistry)
-    repository: elm-lmp-api
+    repository: $(repository)
+    arguments: -t $(containerImage)
 
 - bash: docker build -t $(containerImage)-development --target=development .
   displayName: Build development image
@@ -42,4 +47,4 @@ steps:
   inputs:
     command: push
     containerRegistry: $(azureContainerRegistry)
-    repository: elm-lmp-api
+    repository: $(repository)
