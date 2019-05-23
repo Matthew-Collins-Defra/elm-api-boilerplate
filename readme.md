@@ -24,7 +24,7 @@ Once you clone this repository you'll need to make a few changes before you're r
 
 # Running the application
 
-This application builds to a container image which may be run in isolation to test this API, or may be run as part of a stack using Kubernetes or Docker Compose.
+This application builds to a container image which may be run in isolation (for manual testing) or as part of a stack using Kubernetes or Docker Compose.
 
 ```
 # Build container image
