@@ -19,7 +19,7 @@ Node v8+
 Once you clone this repository you'll need to make a few changes before you're ready to start:
 
 - [x] Add service name and description to the README above
-- [x] Update the `package.json` with the name, description and any git urls and authors etc.  
+- [x] Update the `package.json` with the name, description and any git urls and authors etc.
 - [x] Remove the .git folder in the root directory. This will cut the cord to this boilerplate repo.
 - [ ] Update the build status badges for your new project
 
@@ -86,7 +86,7 @@ Error logging for production should use errbit.
 
 ## Routes
 
-Incoming requests are handled by the server via routes. 
+Incoming requests are handled by the server via routes.
 Each route describes an HTTP endpoint with a path, method, and other properties.
 
 Routes are found in the `server/routes` directory and loaded using the `server/plugins/router.js` plugin.
@@ -112,27 +112,7 @@ There are lots of [route options](http://hapijs.com/api#route-options), here's t
 
 ## Tasks
 
-Build tasks are created using simple shell scripts or node.js programs.
-The default ones are found in the `bin` directory.
-
-The task runner is simply `npm` using `npm-scripts`.
-
-We chose to use this for simplicity but there's nothing to stop you adding `gulp`, `grunt` or another task runner if you prefer. 
-
-The predefined tasks are:
-
-- `npm run lint` (Runs the lint task using standard.js)
-- `npm run unit-test` (Runs the `lab` tests in the `/test` folder)
-- `npm test` (Runs the `lint` task then the `unit-tests`)
-
-### Resources
-
-For more information around using `npm-scripts` as a build tool:
-
-- http://substack.net/task_automation_with_npm_run
-- http://ponyfoo.com/articles/choose-grunt-gulp-or-npm
-- http://blog.keithcirkel.co.uk/why-we-should-stop-using-grunt/
-- http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/
+Build tasks are maintained as shell scripts in the `bin` directory. These depend largely on Node programs, which are called via `npm-scripts` for simplicity and run in containers so that the only direct dependency is Docker.
 
 ## Testing
 
