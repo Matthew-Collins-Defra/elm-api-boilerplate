@@ -12,8 +12,7 @@ ELM Land Management Plan API service
 
 # Prerequisites
 
-Node v8+
-
+Docker
 
 # (Checklist)
 Once you clone this repository you'll need to make a few changes before you're ready to start:
@@ -25,10 +24,18 @@ Once you clone this repository you'll need to make a few changes before you're r
 
 # Running the application
 
-`$ node index.js`
+This application builds to a container image which may be run in isolation to test this API, or may be run as part of a stack using Kubernetes or Docker Compose.
 
+```
+# Build container image
+docker build -t elm-lmp-api:local .
 
-(You can delete the remainder of this readme once you're up and running)
+# Start container
+docker run --rm -d --name elm-lmp-api elm-lmp-api:local
+
+# Stop container (will be automatically removed due to the `--rm` above)
+docker stop elm-lmp-api
+```
 
 ## What is this?
 
@@ -41,7 +48,6 @@ Based on:
 - [standardjs](http://standardjs.com/) - Linting
 - [npm-scripts](https://docs.npmjs.com/misc/scripts) - Build tool
 - [pm2](https://github.com/Unitech/pm2) - Process manager
-
 
 ## Getting started
 
