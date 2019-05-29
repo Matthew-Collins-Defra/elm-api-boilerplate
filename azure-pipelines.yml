@@ -8,6 +8,9 @@ variables:
   - group: containergroup
 
 steps:
+- bash: mkdir test-output/ && chmod 777 test-output/
+  displayName: Create test output folder
+
 - task: DockerCompose@0
   displayName: Build container images
   inputs:
