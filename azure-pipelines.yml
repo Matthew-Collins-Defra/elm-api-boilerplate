@@ -14,7 +14,8 @@ steps:
     action: Build services
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
     azureContainerRegistry: $(azureContainerRegistry)
-    dockerComposeFile: docker/docker-compose.test.yml
+    dockerComposeFile: docker/docker-compose.yml
+    additionalDockerComposeFiles: docker/docker-compose.test.yml
     dockerComposeFileArgs: |
       NODE_ENV=production
       PORT=3001
