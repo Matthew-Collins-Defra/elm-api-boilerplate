@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  api:
+    build:
+      args:
+        NODE_ENV: ${NODE_ENV}
+        PORT: ${PORT}
+      context: ../
+      target: production
+    image: ${CONTAINER_REGISTRY}/elm-lmp-api:${CONTAINER_TAG}
