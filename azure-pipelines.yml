@@ -19,7 +19,7 @@ steps:
     dockerComposeFileArgs: |
       NODE_ENV=production
       PORT=3001
-    projectName: $(Build.Repository.Name)
+    projectName: elm-lmp
     qualifyImageNames: true
     additionalImageTags: $(Build.BuildId)
 
@@ -33,7 +33,7 @@ steps:
     dockerComposeFileArgs: |
       NODE_ENV=production
       PORT=3001
-    projectName: $(Build.Repository.Name)
+    projectName: elm-lmp
     qualifyImageNames: true
     serviceName: unit-test
     ports: 3001
@@ -54,6 +54,6 @@ steps:
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
     azureContainerRegistry: $(azureContainerRegistry)
     dockerComposeFile: docker/docker-compose.yml
-    projectName: $(Build.Repository.Name)
+    projectName: elm-lmp
     qualifyImageNames: true
     additionalImageTags: $(Build.BuildId)
