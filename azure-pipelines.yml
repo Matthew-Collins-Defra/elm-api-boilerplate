@@ -25,7 +25,6 @@ steps:
       PORT=3001
     projectName: elm-lmp
     qualifyImageNames: true
-    additionalImageTags: $(Build.BuildId)
 
 - task: DockerCompose@0
   displayName: Unit test
@@ -62,4 +61,3 @@ steps:
     dockerComposeFile: docker/docker-compose.yml
     projectName: elm-lmp
     qualifyImageNames: true
-    additionalImageTags: $(Build.BuildId)
