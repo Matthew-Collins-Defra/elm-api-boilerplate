@@ -15,7 +15,7 @@ steps:
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
     azureContainerRegistry: $(azureContainerRegistry)
     dockerComposeFile: docker/docker-compose.yml
-    additionalDockerComposeFiles: docker/docker-compose.test.yml
+    additionalDockerComposeFiles: docker-compose.test.yml
     dockerComposeFileArgs: |
       NODE_ENV=production
       PORT=3001
