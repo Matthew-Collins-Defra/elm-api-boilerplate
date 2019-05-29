@@ -6,42 +6,53 @@ pool:
 
 variables:
   - group: containergroup
-  - name: containerImage
-    value: elm-lmp-api:$(Build.BuildId)
-  - name: repository
-    value: elm-lmp-api
-  - name: testOutputDir
-    value: test-output
 
 steps:
-- task: Docker@2
-  displayName: Build production image
+- task: DockerCompose@0
+  displayName: Build container images
   inputs:
-    command: build
-    containerRegistry: $(azureContainerRegistry)
-    repository: $(repository)
-    arguments: -t $(containerImage)
+    action: Build services
+    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+    azureContainerRegistry: $(azureContainerRegistry)
+    dockerComposeFile: docker/docker-compose.test.yml
+    dockerComposeFileArgs: |
+      NODE_ENV=production
+      PORT=3001
+    projectName: $(Build.Repository.Name)
+    qualifyImageNames: true
+    additionalImageTags: $(Build.BuildId)
 
-- bash: docker build -t $(containerImage)-development --target=development .
-  displayName: Build development image
-
-- bash: bin/test
-  displayName: Test
-  env:
-    CONTAINER_IMAGE: $(containerImage)
-    OUTPUT_DIR: $(testOutputDir)
+- task: DockerCompose@0
+  displayName: Unit test
+  inputs:
+    action: Run a specific service
+    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+    azureContainerRegistry: $(azureContainerRegistry)
+    dockerComposeFile: docker/docker-compose.test.yml
+    dockerComposeFileArgs: |
+      NODE_ENV=production
+      PORT=3001
+    projectName: $(Build.Repository.Name)
+    qualifyImageNames: true
+    serviceName: unit-test
+    ports: 3001
+    detached: true
 
 - task: PublishTestResults@2
   displayName: Publish test results
   inputs:
     testResultsFormat: JUnit
-    testResultsFiles: $(testOutputDir)/TEST-*.xml
+    testResultsFiles: test-output/TEST-*.xml
     failTaskOnFailedTests: true
     testRunTitle: Unit Test
 
-- task: Docker@2
-  displayName: Push production image
+- task: DockerCompose@0
+  displayName: Push services
   inputs:
-    command: push
-    containerRegistry: $(azureContainerRegistry)
-    repository: $(repository)
+    action: Push services
+    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+    azureContainerRegistry: $(azureContainerRegistry)
+    dockerComposeFile: docker/docker-compose.yml
+    projectName: $(Build.Repository.Name)
+    qualifyImageNames: true
+    additionalImageTags: $(Build.BuildId)

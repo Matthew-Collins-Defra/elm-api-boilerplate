@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
 # Unit tests
-docker-compose -f docker/docker-compose.test.yml run test
+docker-compose -p local/elm-lmp-api -f docker/docker-compose.test.yml run test
