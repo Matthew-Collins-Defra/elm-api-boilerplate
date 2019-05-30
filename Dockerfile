@@ -1,5 +1,5 @@
-# Production
-FROM node:10.15.3-alpine AS production
+# Base
+FROM node:10.15.3-alpine AS base
 
 USER node
 WORKDIR /home/node
@@ -15,16 +15,21 @@ COPY --chown=node:node package.json package-lock.json /home/node/
 
 RUN npm ci --loglevel verbose
 
-COPY --chown=node:node ./server/ /home/node/server/
-COPY --chown=node:node ./index.js /home/node/index.js
-
 CMD ["node", "index.js"]
 
 # Development
-FROM production AS development
+FROM base AS development
 
 ENV NODE_ENV development
 
-RUN npm ci --loglevel verbose
+RUN npm install --loglevel verbose
 
+COPY --chown=node:node ./index.js /home/node/index.js
+COPY --chown=node:node ./server/ /home/node/server/
 COPY --chown=node:node ./test/ /home/node/test/
+
+# Production
+FROM base AS production
+
+COPY --chown=node:node ./index.js /home/node/index.js
+COPY --chown=node:node ./server/ /home/node/server/
