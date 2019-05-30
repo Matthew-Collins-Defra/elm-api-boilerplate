@@ -17,12 +17,13 @@ steps:
     action: Build services
     containerregistrytype: Azure Container Registry
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-    dockerRegistryEndpoint: $(azureContainerRegistry)
+    azureContainerRegistry: $(azureContainerRegistry)
     dockerComposeFile: docker/docker-compose.yml
     additionalDockerComposeFiles: docker-compose.test.yml
     dockerComposeFileArgs: |
       NODE_ENV=production
       PORT=3001
+    projectName: elm-lmp
     qualifyImageNames: true
 
 - task: DockerCompose@0
@@ -31,11 +32,12 @@ steps:
     action: Run a specific service
     containerregistrytype: Azure Container Registry
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-    dockerRegistryEndpoint: $(azureContainerRegistry)
+    azureContainerRegistry: $(azureContainerRegistry)
     dockerComposeFile: docker/docker-compose.test.yml
     dockerComposeFileArgs: |
       NODE_ENV=production
       PORT=3001
+    projectName: elm-lmp
     qualifyImageNames: true
     serviceName: unit-test
     ports: 3001
@@ -55,6 +57,7 @@ steps:
     action: Push services
     containerregistrytype: Azure Container Registry
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-    dockerRegistryEndpoint: $(azureContainerRegistry)
+    azureContainerRegistry: $(azureContainerRegistry)
     dockerComposeFile: docker/docker-compose.yml
+    projectName: elm-lmp
     qualifyImageNames: true
