@@ -52,7 +52,7 @@ steps:
     testRunTitle: Unit Test
 
 - task: DockerCompose@0
-  displayName: Push services
+  displayName: Push production images
   inputs:
     action: Push services
     containerregistrytype: Azure Container Registry
