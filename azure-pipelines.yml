@@ -11,12 +11,6 @@ steps:
 - bash: mkdir test-output/ && chmod 777 test-output/
   displayName: Create test output folder
 
-- task: Docker@2
-  displayName: Login to container registry
-  inputs:
-    command: login
-    containerRegistry: $(azureContainerRegistry)
-
 - task: DockerCompose@0
   displayName: Build container images
   inputs:
@@ -29,7 +23,6 @@ steps:
     dockerComposeFileArgs: |
       NODE_ENV=production
       PORT=3001
-    projectName: elm-lmp
     qualifyImageNames: true
 
 - task: DockerCompose@0
@@ -43,7 +36,6 @@ steps:
     dockerComposeFileArgs: |
       NODE_ENV=production
       PORT=3001
-    projectName: elm-lmp
     qualifyImageNames: true
     serviceName: unit-test
     ports: 3001
@@ -65,5 +57,4 @@ steps:
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
     azureContainerRegistry: $(azureContainerRegistry)
     dockerComposeFile: docker/docker-compose.yml
-    projectName: elm-lmp
     qualifyImageNames: true
