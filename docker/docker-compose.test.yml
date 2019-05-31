@@ -10,6 +10,4 @@ services:
       target: development
     command: npm run test
     volumes:
-      - "../server/:/home/node/server/"
-      - "../test/:/home/node/test/"
-      - "../test-output/:/home/node/test-output/"
+      - "../:/home/node/"
