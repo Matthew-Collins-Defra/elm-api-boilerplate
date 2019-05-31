@@ -8,3 +8,5 @@ services:
         PORT: ${PORT}
       context: ../
       target: production
+    volumes:
+      - "../:/home/node/"
