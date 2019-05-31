@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+# Unit tests
+docker-compose \
+    --project-name elm-lmp-api \
+    --file docker/docker-compose.test.yml \
+    run unit-test

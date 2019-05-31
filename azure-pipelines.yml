@@ -1,0 +1,63 @@
+trigger:
+  - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: containergroup
+
+steps:
+- bash: mkdir test-output/ && chmod 777 test-output/
+  displayName: Create test output folder
+
+- task: DockerCompose@0
+  displayName: Build container images
+  inputs:
+    action: Build services
+    containerregistrytype: Azure Container Registry
+    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+    azureContainerRegistry: $(azureContainerRegistry)
+    dockerComposeFile: docker/docker-compose.yml
+    additionalDockerComposeFiles: docker-compose.test.yml
+    dockerComposeFileArgs: |
+      NODE_ENV=production
+      PORT=3001
+    projectName: elm-lmp
+    qualifyImageNames: true
+
+- task: DockerCompose@0
+  displayName: Unit test
+  inputs:
+    action: Run a specific service
+    containerregistrytype: Azure Container Registry
+    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+    azureContainerRegistry: $(azureContainerRegistry)
+    dockerComposeFile: docker/docker-compose.test.yml
+    dockerComposeFileArgs: |
+      NODE_ENV=production
+      PORT=3001
+    projectName: elm-lmp
+    qualifyImageNames: true
+    serviceName: unit-test
+    ports: 3001
+    detached: false
+
+- task: PublishTestResults@2
+  displayName: Publish test results
+  inputs:
+    testResultsFormat: JUnit
+    testResultsFiles: test-output/TEST-*.xml
+    failTaskOnFailedTests: true
+    testRunTitle: Unit Test
+
+- task: DockerCompose@0
+  displayName: Push production images
+  inputs:
+    action: Push services
+    containerregistrytype: Azure Container Registry
+    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+    azureContainerRegistry: $(azureContainerRegistry)
+    dockerComposeFile: docker/docker-compose.yml
+    projectName: elm-lmp
+    qualifyImageNames: true

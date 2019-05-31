@@ -5,13 +5,13 @@
   "homepage": "https://github.com/Matthew-Collins-Defra/elm-api-boilerplate",
   "main": "index.js",
   "scripts": {
+    "pretest": "npm run test:lint",
     "start": "node index.js",
-    "lint": "standard",
-    "unit-test": "lab -c -r console -o stdout -r lcov -o lcov.info",
-    "pretest": "npm run lint",
-    "test": "npm run unit-test",
-    "unit-test-watch": "nodemon --inspect=0.0.0.0 --exec npm run unit-test",
-    "snyk-test": "snyk test"
+    "test": "npm run test:unit",
+    "test:lint": "standard",
+    "test:snyk": "snyk test",
+    "test:unit": "lab -c -r console -o stdout -r junit -o ./test-output/TEST-$(date '+%Y%m%d-%H%M%S').xml",
+    "watch:unit": "nodemon --inspect=0.0.0.0 --exec npm run test:unit"
   },
   "author": "Defra DDTS",
   "contributors": [
