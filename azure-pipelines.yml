@@ -25,54 +25,6 @@ steps:
     qualifyImageNames: true
 
 - task: DockerCompose@0
-  displayName: DEBUG pwd
-  inputs:
-    action: Run a specific service
-    containerregistrytype: Azure Container Registry
-    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-    azureContainerRegistry: $(azureContainerRegistry)
-    dockerComposeFile: docker-compose.yml
-    dockerComposeFileArgs: |
-      NODE_ENV=production
-      PORT=3001
-    qualifyImageNames: true
-    serviceName: unit-test
-    detached: false
-    containerCommand: pwd
-
-- task: DockerCompose@0
-  displayName: DEBUG ls -la
-  inputs:
-    action: Run a specific service
-    containerregistrytype: Azure Container Registry
-    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-    azureContainerRegistry: $(azureContainerRegistry)
-    dockerComposeFile: docker-compose.yml
-    dockerComposeFileArgs: |
-      NODE_ENV=production
-      PORT=3001
-    qualifyImageNames: true
-    serviceName: unit-test
-    detached: false
-    containerCommand: ls -la
-
-- task: DockerCompose@0
-  displayName: DEBUG ls -la ./node_modules/
-  inputs:
-    action: Run a specific service
-    containerregistrytype: Azure Container Registry
-    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-    azureContainerRegistry: $(azureContainerRegistry)
-    dockerComposeFile: docker-compose.yml
-    dockerComposeFileArgs: |
-      NODE_ENV=production
-      PORT=3001
-    qualifyImageNames: true
-    serviceName: unit-test
-    detached: false
-    containerCommand: ls -la ./node_modules/
-
-- task: DockerCompose@0
   displayName: Unit test
   inputs:
     action: Run a specific service
