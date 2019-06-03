@@ -40,12 +40,18 @@ steps:
     detached: false
 
 - task: PublishTestResults@2
-  displayName: Publish test results
+  displayName: Publish unit test results
   inputs:
     testResultsFormat: JUnit
-    testResultsFiles: test-output/TEST-*.xml
+    testResultsFiles: test-output/junit.xml
     failTaskOnFailedTests: true
     testRunTitle: Unit Test
+
+- task: PublishCodeCoverageResults@1
+  displayName: Publish code coverage
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: test-output/cobertura-coverage.xml
 
 - task: DockerCompose@0
   displayName: Push production images
