@@ -39,7 +39,7 @@ steps:
     qualifyImageNames: true
     serviceName: unit-test
     detached: false
-    containerCommand: pwd && echo "ls -la" && ls -la && echo "ls -la ./node_modules/" && ls -la ./node_modules/
+    containerCommand: sh -c 'pwd && echo "ls -la" && ls -la && echo "ls -la ./node_modules/" && ls -la ./node_modules/'
 
 - task: DockerCompose@0
   displayName: Unit test
