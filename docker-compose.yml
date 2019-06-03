@@ -17,3 +17,5 @@ services:
       context: ./
       target: development
     command: npm run test
+    volumes:
+      - "./test-output/:/home/node/test-output/"
