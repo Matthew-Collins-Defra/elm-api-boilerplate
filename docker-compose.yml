@@ -1,13 +1,19 @@
 version: "3.4"
 
 services:
+  api:
+    build:
+      args:
+        NODE_ENV: ${NODE_ENV}
+        PORT: ${PORT}
+      context: ./
+      target: production
+
   unit-test:
     build:
       args:
         NODE_ENV: development
         PORT: ${PORT}
-      context: ../
+      context: ./
       target: development
     command: npm run test
-    volumes:
-      - "../:/home/node/"
