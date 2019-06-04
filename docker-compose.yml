@@ -18,4 +18,5 @@ services:
       target: development
     command: npm run test
     volumes:
+      - "./.git/:/home/node/.git/" # `jest --watch` requires git
       - "./test-output/:/home/node/test-output/"
