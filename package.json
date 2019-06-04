@@ -13,7 +13,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "npm-run-all test:lint test:unit",
+    "test": "npm-run-all --parallel test:lint test:unit",
     "test:lint": "standard",
     "test:snyk": "snyk test",
     "test:unit": "jest",
