@@ -13,7 +13,7 @@ EXPOSE ${PORT}
 
 COPY --chown=node:node package.json package-lock.json /home/node/
 
-RUN npm ci --loglevel verbose
+RUN npm ci --loglevel verbose && npm cache clean --force
 
 CMD ["node", "index.js"]
 
@@ -26,7 +26,7 @@ USER root
 RUN apk update && apk add git
 USER node
 
-RUN npm install --loglevel verbose
+RUN npm install --loglevel verbose && npm cache clean --force
 
 COPY --chown=node:node ./index.js /home/node/index.js
 COPY --chown=node:node ./server/ /home/node/server/
