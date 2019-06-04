@@ -6,9 +6,11 @@ pool:
 
 variables:
   - group: containergroup
+  - name: testOutputDir
+    value: test-output
 
 steps:
-- bash: mkdir test-output/ && chmod 777 test-output/
+- bash: mkdir $(testOutputDir)/ && chmod 777 $(testOutputDir)/
   displayName: Create test output folder
 
 - task: DockerCompose@0
@@ -43,7 +45,7 @@ steps:
   displayName: Publish unit test results
   inputs:
     testResultsFormat: JUnit
-    testResultsFiles: test-output/junit.xml
+    testResultsFiles: $(testOutputDir)/junit.xml
     failTaskOnFailedTests: true
     testRunTitle: Unit Test
 
@@ -51,7 +53,7 @@ steps:
   displayName: Publish code coverage
   inputs:
     codeCoverageTool: Cobertura
-    summaryFileLocation: test-output/cobertura-coverage.xml
+    summaryFileLocation: $(testOutputDir)/cobertura-coverage.xml
 
 - task: DockerCompose@0
   displayName: Push production images
