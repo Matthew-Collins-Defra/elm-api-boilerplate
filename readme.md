@@ -126,9 +126,14 @@ There are lots of [route options](http://hapijs.com/api#route-options), here's t
 
 ## Tasks
 
-Build tasks are maintained as shell scripts in the `bin` directory.
+Build tasks are maintained as shell scripts in the `bin` directory. These mostly execute Node programs in containers via `docker-compose` in order to minimise dependencies on the host system. The Node programs are defined as `npm-scripts` in `package.json`.
 
-These mostly execute Node programs in containers via `docker-compose` in order to minimise dependencies on the host system. The Node programs are defined as `npm-scripts` in `package.json`.
+| Script        | Description                                                           |
+|---------------|-----------------------------------------------------------------------|
+| `bin/build`   | Build container images                                                |
+| `bin/run x`   | Run an instance of the Docker Compose service named as first argument |
+| `bin/test`    | Run automated tests against built container images                    |
+| `bin/watch`   | Run a code watcher to unit test changes automatically                 |
 
 ## Testing
 

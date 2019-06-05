@@ -3,6 +3,4 @@
 # Run an arbitrary command in a short-lived API container
 docker-compose \
     --project-name elm-lmp-api \
-    --file docker/docker-compose.yml \
-    run api \
-    "$@"
+    run "$@"

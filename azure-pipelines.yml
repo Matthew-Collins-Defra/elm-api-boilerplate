@@ -24,22 +24,25 @@ steps:
     dockerComposeFileArgs: |
       NODE_ENV=production
       PORT=3001
+    projectName: elm-lmp
     qualifyImageNames: true
 
 - task: DockerCompose@0
   displayName: Unit test
   inputs:
     action: Run a specific service
-    containerregistrytype: Azure Container Registry
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
     azureContainerRegistry: $(azureContainerRegistry)
+    containerregistrytype: Azure Container Registry
     dockerComposeFile: docker-compose.yml
     dockerComposeFileArgs: |
       NODE_ENV=production
       PORT=3001
-    qualifyImageNames: true
-    serviceName: unit-test
     detached: false
+    projectName: elm-lmp
+    qualifyImageNames: true
+    serviceName: development
+    command: npm run test
 
 - task: PublishTestResults@2
   displayName: Publish unit test results
@@ -59,8 +62,9 @@ steps:
   displayName: Push production images
   inputs:
     action: Push services
-    containerregistrytype: Azure Container Registry
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
     azureContainerRegistry: $(azureContainerRegistry)
+    containerregistrytype: Azure Container Registry
     dockerComposeFile: docker-compose.yml
+    projectName: elm-lmp
     qualifyImageNames: true
