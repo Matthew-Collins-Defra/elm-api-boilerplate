@@ -21,6 +21,7 @@ steps:
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
     azureContainerRegistry: $(azureContainerRegistry)
     dockerComposeFile: docker-compose.yml
+    additionalDockerComposeFiles: docker-compose.override.yml
     dockerComposeFileArgs: |
       NODE_ENV=production
       PORT=3001
@@ -35,6 +36,7 @@ steps:
     azureContainerRegistry: $(azureContainerRegistry)
     containerregistrytype: Azure Container Registry
     dockerComposeFile: docker-compose.yml
+    additionalDockerComposeFiles: docker-compose.override.yml
     dockerComposeFileArgs: |
       NODE_ENV=production
       PORT=3001
