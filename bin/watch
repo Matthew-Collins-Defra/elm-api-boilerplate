@@ -2,6 +2,6 @@
 
 # Run the watch command in a development container
 docker-compose \
-    --project-name elm-lmp-app \
+    --project-name elm-lmp-api \
     run development \
     npm run watch:unit
