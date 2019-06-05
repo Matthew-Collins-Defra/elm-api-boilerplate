@@ -1,0 +1,23 @@
+version: "3.4"
+
+services:
+  api:
+    volumes:
+      - "./index.js:/home/node/index.js"
+      - "./server/:/home/node/server/"
+
+  development:
+    build:
+      args:
+        NODE_ENV: development
+        PORT: ${PORT}
+      context: ./
+      target: development
+    command: npm run test
+    volumes:
+      - "./.git/:/home/node/.git/" # `jest --watch` requires git
+      - "./server/:/home/node/server/"
+      - "./test/:/home/node/test/"
+      - "./test-output/:/home/node/test-output/"
+      - "./index.js:/home/node/index.js"
+      - "./package.json:/home/node/package.json"
