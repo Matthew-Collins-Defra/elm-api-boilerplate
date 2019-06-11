@@ -4,12 +4,18 @@ FROM node:10.15.3-alpine AS base
 USER node
 WORKDIR /home/node
 
+ENTRYPOINT ["/sbin/tini", "--"]
+
 ARG NODE_ENV=production
 ENV NODE_ENV ${NODE_ENV}
 
 ARG PORT=3001
 ENV PORT ${PORT}
 EXPOSE ${PORT}
+
+USER root
+RUN apk update && apk add --no-cache tini
+USER node
 
 COPY --chown=node:node package.json package-lock.json /home/node/
 
