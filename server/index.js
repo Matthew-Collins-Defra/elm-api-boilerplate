@@ -15,8 +15,9 @@ async function createServer () {
   })
 
   // Register the plugins
-  await server.register(require('./plugins/router'))
   await server.register(require('./plugins/error-pages'))
+  await server.register(require('./plugins/graceful-stop'))
+  await server.register(require('./plugins/router'))
 
   if (config.isDev) {
     await server.register(require('blipp'))
