@@ -1,6 +1,5 @@
 const hapi = require('hapi')
 const config = require('./config')
-const plugins = require('./plugins')
 
 async function createServer () {
   // Create the hapi server
@@ -16,10 +15,13 @@ async function createServer () {
   })
 
   // Register the plugins
-  await server.register(plugins.universal)
+  await server.register(require('./plugins/error-pages'))
+  await server.register(require('./plugins/graceful-stop'))
+  await server.register(require('./plugins/router'))
 
   if (config.isDev) {
-    await server.register(plugins.development)
+    await server.register(require('blipp'))
+    await server.register(require('./plugins/logging'))
   }
 
   return server
